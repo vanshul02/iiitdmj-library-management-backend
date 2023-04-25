@@ -1,7 +1,6 @@
 import { Column, CreateDateColumn, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Role, UserAttributes } from "../../interfaces/User";
 import { Student } from "./Student";
-import { StaffAttributes } from "../../interfaces/Staff";
 import { Staff } from "./Staff";
 
 @Entity()
@@ -9,38 +8,40 @@ export class User implements UserAttributes {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @OneToOne(() => Student, (student) => student.user)
+  @OneToOne(() => Student)
+  @JoinColumn()
   student?: Student;
 
-  @OneToOne(() => Staff, (staff) => staff.user)
-  staff?: StaffAttributes;
+  @OneToOne(() => Staff)
+  @JoinColumn()
+  staff?: Staff;
 
   @Column()
-  first_name!: string;
+  firstName!: string;
 
   @Column()
-  middle_name!: string;
+  middleName!: string;
 
   @Column()
-  last_name!: string;
+  lastName!: string;
 
   @Column()
-  @Index('email_index')
+  @Index('emailIndex')
   email!: string;
 
   @Column()
-  hashed_password!: string;
+  hashedPassword!: string;
 
   @Column()
   role!: Role;
 
   @Column({ default: true })
-  is_active!: boolean;
+  isActive!: boolean;
 
   @CreateDateColumn()
-  created_at!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updated_at!: Date;
+  updatedAt!: Date;
 
 }

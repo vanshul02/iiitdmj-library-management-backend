@@ -9,37 +9,34 @@ export class IssueHistory implements IssueHistoryAttributes {
   @PrimaryGeneratedColumn()
   id !: number;
 
-  @ManyToOne(() => Copy, (copy) => copy.issue_history)
-  @JoinColumn({ name: 'copy_id' })
+  @ManyToOne(() => Copy, (copy) => copy.issueHistory)
   copy!: Copy;
 
-  @ManyToOne(() => Book, (book) => book.issue_history)
-  @JoinColumn({ name: 'book_id' })
+  @ManyToOne(() => Book, (book) => book.issueHistory)
   book!: Book;
 
-  @ManyToOne(() => Student, (student) => student.issue_history)
-  @JoinColumn({ name: 'student_id' })
+  @ManyToOne(() => Student, (student) => student.issueHistory)
   student!: Student;
 
   @Column({ default: 0 })
-  fine_amount?: number;
+  fineAmount?: number;
 
   @Column()
-  fine_clearing_date?: Date;
+  fineClearingDate?: Date;
 
   @Column()
-  fine_posting_dt?: Date;
+  finePostingDate?: Date;
 
   @Column()
-  issued_date!: Date;
+  issuedDate!: Date;
 
   @Column()
-  return_date?: Date;
+  returnDate?: Date;
 
   @CreateDateColumn()
-  created_at!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updated_at!: Date;
+  updatedAt!: Date;
 
 }

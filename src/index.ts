@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as dotenv from 'dotenv';
-import categoryRoutes from './api/routes/category';
+import categoryRoutes from './api/routes/Category';
 import { AppDataSource } from './db/DataSource';
 dotenv.config({ path: __dirname + '/.env' });
 

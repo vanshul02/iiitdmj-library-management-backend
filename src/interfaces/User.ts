@@ -3,17 +3,17 @@ import { StudentAttributes } from "./Student";
 
 export interface UserAttributes {
   id: number;
-  first_name: string;
-  middle_name: string;
-  last_name: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
   student?: StudentAttributes;
   staff?: StaffAttributes;
   email: string;
-  hashed_password: string;
+  hashedPassword: string;
   role: Role;
-  is_active: boolean;
-  created_at: Date;
-  updated_at: Date;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export enum Role {

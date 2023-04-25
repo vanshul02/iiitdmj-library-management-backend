@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToMany, ManyToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToMany, ManyToOne, ViewColumn } from "typeorm"
 import { Category } from "./Category";
 import { BookAttributes } from "../../interfaces/Book";
 import { Copy } from "./Copy";
@@ -20,28 +20,22 @@ export class Book implements BookAttributes {
   author?: string;
 
   @ManyToOne(() => Category, (category) => category.books)
-  @JoinColumn({ name: 'category_id' })
   category!: Category;
 
   @OneToMany(() => Copy, (copy) => copy.book)
   copies?: Copy[]
 
   @OneToMany(() => IssueHistory, (IssueHistory) => IssueHistory.book)
-  issue_history?: IssueHistory[];
-
-  @Column({ default: 0 })
-  times_issued!: number;
-
-  @Column({ default: 0 })
-  num_of_copies!: number;
-
-  @Column({ default: 0 })
-  num_of_copies_issued!: number;
+  issueHistory?: IssueHistory[];
 
   @CreateDateColumn()
-  created_at!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updated_at!: Date;
+  updatedAt!: Date;
+
+  timesIssued: number = this.issueHistory?.length ?? 0;
+  numOfCopies: number = this.copies?.length ?? 0;
+  numOfCopiesIssued: number = this.copies?.filter(copy => copy.isIssued).length ?? 0;
 
 }

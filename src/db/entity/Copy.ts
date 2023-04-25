@@ -12,28 +12,26 @@ export class Copy implements CopyAttributes {
   id!: number;
 
   @ManyToOne(() => Book, (book) => book.copies)
-  @JoinColumn({ name: 'book_id' })
   book!: Book;
 
   @OneToMany(() => IssueHistory, (IssueHistory) => IssueHistory.copy)
-  issue_history?: IssueHistory[];
+  issueHistory?: IssueHistory[];
 
   @Column({ default: false })
-  is_issued!: boolean;
+  isIssued!: boolean;
 
-  @ManyToOne(() => Student, (student) => student.issued_copies)
-  @JoinColumn({ name: 'issued_by' })
-  issued_by?: Student;
-
-  @Column()
-  issued_at?: Date;
+  @ManyToOne(() => Student, (student) => student.issuedCopies)
+  issuedBy?: Student;
 
   @Column()
-  due_date?: Date;
+  issuedAt?: Date;
+
+  @Column()
+  dueDate?: Date;
 
   @CreateDateColumn()
-  created_at!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updated_at!: Date;
+  updatedAt!: Date;
 }

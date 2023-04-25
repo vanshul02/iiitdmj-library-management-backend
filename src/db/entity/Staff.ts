@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { StaffAttributes } from "../../interfaces/Staff";
 import { User } from "./User";
 
@@ -8,6 +8,5 @@ export class Staff implements StaffAttributes {
   id!: number;
 
   @OneToOne(() => User, (user) => user.staff)
-  @JoinColumn({ name: 'user_id' })
   user!: User;
 }

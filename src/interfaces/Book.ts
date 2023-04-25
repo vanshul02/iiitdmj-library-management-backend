@@ -7,11 +7,11 @@ export interface BookAttributes {
   summary?: string;
   author?: string;
   category: CategoryAttributes;
-  issue_history?: IssueHistoryAttributes[];
+  issueHistory?: IssueHistoryAttributes[];
   copies?: any;
-  times_issued: number;
-  num_of_copies: number;
-  num_of_copies_issued: number;
-  created_at: Date;
-  updated_at: Date;
+  timesIssued: number;
+  numOfCopies: number;
+  numOfCopiesIssued: number;
+  createdAt: Date;
+  updatedAt: Date;
 }

@@ -7,11 +7,11 @@ export interface IssueHistoryAttributes {
   copy: CopyAttributes;
   book: BookAttributes;
   student: StudentAttributes;
-  fine_amount?: number;
-  fine_clearing_date?: Date;
-  fine_posting_dt?: Date;
-  issued_date: Date;
-  return_date?: Date;
-  created_at: Date;
-  updated_at: Date;
+  fineAmount?: number;
+  fineClearingDate?: Date;
+  finePostingDate?: Date;
+  issuedDate: Date;
+  returnDate?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

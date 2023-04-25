@@ -12,15 +12,14 @@ export class Student implements StudentAttributes {
   id!: number;
 
   @OneToOne(() => User, (user) => user.student)
-  @JoinColumn({ name: 'user_id' })
   user!: User;
 
   @Column({ unique: true })
-  roll_number !: string;
+  rollNumber !: string;
 
-  @OneToMany(() => Copy, (copy) => copy.issued_by)
-  issued_copies ?: Copy[];
+  @OneToMany(() => Copy, (copy) => copy.issuedBy)
+  issuedCopies ?: Copy[];
 
   @OneToMany(() => IssueHistory, (IssueHistory) => IssueHistory.student)
-  issue_history?: IssueHistory[];
+  issueHistory?: IssueHistory[];
 }
