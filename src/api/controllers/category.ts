@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../../db/data-source"
+import { AppDataSource } from "../../db/DataSource"
 import { Category } from "../../db/entity/Category"
 
 export const addCategory = async (req: Request, res: Response) => {

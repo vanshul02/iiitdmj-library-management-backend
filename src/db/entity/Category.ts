@@ -1,11 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Unique } from "typeorm"
-
-export type CategoryAttributes = {
-    id: number;
-    name: string;
-    created_at: Date;
-    updated_at: Date;
-}
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm"
+import { CategoryAttributes } from "../../interfaces/Category";
+import { Book } from "./Book";
 
 @Entity()
 export class Category implements CategoryAttributes {
@@ -15,6 +10,9 @@ export class Category implements CategoryAttributes {
 
     @Column({ unique: true })
     name!: string;
+
+    @OneToMany(() => Book, (book) => book.category)
+    books ?: Book[];
 
     @CreateDateColumn()
     created_at!: Date;

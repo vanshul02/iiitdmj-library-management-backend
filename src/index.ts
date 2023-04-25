@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as dotenv from 'dotenv';
 import categoryRoutes from './api/routes/category';
-import { AppDataSource } from './db/data-source';
+import { AppDataSource } from './db/DataSource';
 dotenv.config({ path: __dirname + '/.env' });
 
 const app: express.Application = express();
