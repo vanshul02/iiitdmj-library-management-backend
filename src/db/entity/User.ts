@@ -1,7 +1,8 @@
-import { Column, CreateDateColumn, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Role, UserAttributes } from "../../interfaces/User";
 import { Student } from "./Student";
 import { Staff } from "./Staff";
+import * as bcrypt from 'bcryptjs';
 
 @Entity()
 export class User implements UserAttributes {
@@ -19,8 +20,8 @@ export class User implements UserAttributes {
   @Column()
   firstName!: string;
 
-  @Column()
-  middleName!: string;
+  @Column({ nullable: true })
+  middleName?: string;
 
   @Column()
   lastName!: string;
@@ -30,7 +31,7 @@ export class User implements UserAttributes {
   email!: string;
 
   @Column()
-  hashedPassword!: string;
+  password!: string;
 
   @Column()
   role!: Role;
@@ -43,5 +44,20 @@ export class User implements UserAttributes {
 
   @UpdateDateColumn()
   updatedAt!: Date;
+
+  // Hash password before saving to database
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await bcrypt.hash(this.password, 12);
+  }
+
+  // ? Validate password
+  static async comparePasswords(
+    candidatePassword: string,
+    hashedPassword: string
+  ) {
+    return await bcrypt.compare(candidatePassword, hashedPassword);
+  }
+
 
 }
