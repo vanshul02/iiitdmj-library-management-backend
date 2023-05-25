@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 import * as cors from 'cors';
 import authRouter from './api/routes/Auth.Routes';
 import userRouter from './api/routes/User.Routes';
-import categoryRoutes from './api/routes/Category';
+import categoryRoutes from './api/routes/Category.Routes';
 import { AppDataSource } from './db/DataSource';
 import AppError from './utils/AppError';
 import * as morgan from 'morgan';
@@ -36,7 +36,8 @@ AppDataSource.initialize().then(async () => {
 
   // ROUTES
   app.use('/api/auth', authRouter);
-  app.use('/api/users', userRouter);
+  app.use('/api/user', userRouter);
+  app.use('/api/category', categoryRoutes);
 
   // HEALTH CHECKER
   app.get('/api/healthChecker', async (_, res: Response) => {
