@@ -5,6 +5,10 @@ import { Book } from "./Book";
 @Entity()
 export class Category implements CategoryAttributes {
 
+    constructor(name: string) {
+        this.name = name;
+    }
+
     @PrimaryGeneratedColumn()
     id!: number;
 

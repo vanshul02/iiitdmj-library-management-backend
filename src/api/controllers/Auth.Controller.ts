@@ -173,7 +173,7 @@ export const logoutHandler = async (
   try {
     const user = res.locals.user;
 
-    await redisClient.del(user.id);
+    await redisClient.del(String(user.id));
     logout(res);
 
     res.status(200).json({
