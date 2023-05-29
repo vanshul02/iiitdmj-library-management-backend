@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, CreateDateColumn, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 import { Role, UserAttributes } from "../../interfaces/User";
 import { Student } from "./Student";
 import { Staff } from "./Staff";
@@ -26,7 +26,7 @@ export class User implements UserAttributes {
   @Column()
   lastName!: string;
 
-  @Column()
+  @Column({unique: true})
   @Index('emailIndex')
   email!: string;
 

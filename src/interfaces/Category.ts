@@ -5,4 +5,6 @@ export interface CategoryAttributes {
   updatedAt: Date;
 }
 
-export type CategoryInputAttributes = Omit<CategoryAttributes, 'id' | 'created_at' | 'updated_at'>
+export interface CreateCategoryInputAttributes {
+  name: string;
+}

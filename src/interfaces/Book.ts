@@ -14,4 +14,11 @@ export interface BookAttributes {
   numOfCopiesIssued: number;
   createdAt: Date;
   updatedAt: Date;
-}
+};
+
+export interface CreateBookInputAttributes {
+  name: string;
+  summary?: string;
+  author?: string;
+  categoryId: number;
+};

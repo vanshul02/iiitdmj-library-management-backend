@@ -8,6 +8,11 @@ import { IssueHistory } from "./IssueHistory";
 @Entity()
 export class Copy implements CopyAttributes {
 
+  constructor(book: Book) {
+    this.book = book;
+    this.isIssued = false;
+  }
+
   @PrimaryGeneratedColumn()
   id!: number;
 

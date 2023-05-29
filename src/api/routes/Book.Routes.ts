@@ -2,13 +2,14 @@ import { Router } from "express";
 import { deserializeUser } from "../../middleware/DeserializeUser";
 import { requireUser } from "../../middleware/RequireUser";
 import * as controller from '../controllers/Book.Controller';
+import * as util from "../controllers/utils/Util";
 const router = Router();
 
 router.use(deserializeUser, requireUser);
 
-router.post('/add', controller.addBook);
+router.post('/add', util.checkForStaff, controller.addBook);
 router.get('/:id', controller.getBookById);
-router.put('/update', controller.updateBook);
-router.delete('/delete', controller.deleteBook);
+router.put('/update', util.checkForStaff, controller.updateBook);
+router.delete('/delete', util.checkForStaff, controller.deleteBook);
 
 export default router;

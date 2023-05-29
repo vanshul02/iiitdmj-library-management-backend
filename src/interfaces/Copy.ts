@@ -13,3 +13,8 @@ export interface CopyAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface CreateCopyAttributes {
+  book: BookAttributes;
+  isIssued: boolean;
+}

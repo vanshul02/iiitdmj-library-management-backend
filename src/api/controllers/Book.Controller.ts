@@ -1,16 +1,25 @@
 import { NextFunction, Request, Response } from 'express';
 import { AppDataSource } from "../../db/DataSource";
 import { Book } from "../../db/entity/Book";
+import { CreateBookInputAttributes } from '../../interfaces/Book';
+import { Category } from '../../db/entity/Category';
 
 const bookRepository = AppDataSource.getRepository(Book);
+
+const assignCategoryToBook = (book: Book, categoryId: number) => {
+  let tempCategory = new Category("");
+  tempCategory.id = categoryId;
+  book.category = tempCategory;
+};
 
 export const addBook = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const { name, summary, author, category  } = req.body;
-  const book = new Book(name, summary, author, category);
+  const createBookInput: CreateBookInputAttributes = req.body;
+  let book = new Book(createBookInput.name, createBookInput.summary, createBookInput.author);
+  assignCategoryToBook(book, createBookInput.categoryId);
   try {
     const result = await bookRepository.save(book);
     console.log("Added a new book with id: " + book.id);

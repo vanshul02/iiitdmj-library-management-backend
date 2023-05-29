@@ -47,7 +47,7 @@ export const registerUserHandler = async (
       password,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       status: 'success',
       data: {
         user,
@@ -55,12 +55,12 @@ export const registerUserHandler = async (
     });
   } catch (err: any) {
     if (err.code === '23505') {
-      res.status(409).json({
+      return res.status(409).json({
         status: 'fail',
         message: 'User with that email already exist',
       });
     }
-    next(err);
+    return next(err);
   }
 };
 
@@ -175,6 +175,7 @@ export const logoutHandler = async (
 
     await redisClient.del(String(user.id));
     logout(res);
+    res.locals.user = null;
 
     res.status(200).json({
       status: 'success',
