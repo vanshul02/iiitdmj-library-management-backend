@@ -15,7 +15,9 @@
       "fix": "gts fix",
       "prepare": "npm.cmd run compile",
       "pretest": "npm.cmd run compile",
-      "posttest": "npm.cmd run lint"
+      "posttest": "npm.cmd run lint",
+      "migrate": "npx typeorm-ts-node-commonjs migration:run -d ./src/db/DataSource",
+      "migrate-revert": "npx typeorm-ts-node-commonjs migration:revert -d ./src/db/DataSource"
    },
    "author": "vanshul02",
    "license": "ISC",
