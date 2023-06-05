@@ -8,8 +8,7 @@ import { IssueHistory } from "./IssueHistory";
 @Entity()
 export class Copy implements CopyAttributes {
 
-  constructor(book: Book) {
-    this.book = book;
+  constructor() {
     this.isIssued = false;
   }
 
@@ -28,10 +27,10 @@ export class Copy implements CopyAttributes {
   @ManyToOne(() => Student, (student) => student.issuedCopies)
   issuedBy?: Student;
 
-  @Column()
+  @Column({ nullable : true })
   issuedAt?: Date;
 
-  @Column()
+  @Column({ nullable : true })
   dueDate?: Date;
 
   @CreateDateColumn()

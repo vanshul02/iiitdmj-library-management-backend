@@ -18,12 +18,16 @@ export const addBook = async (
   next: NextFunction
 ) => {
   const createBookInput: CreateBookInputAttributes = req.body;
-  let book = new Book(createBookInput.name, createBookInput.summary, createBookInput.author);
+  console.log('addBook createBookInput: ', createBookInput);
+  let book = new Book();
+  book.name = createBookInput.name;
+  book.summary = createBookInput.summary;
+  book.author = createBookInput.author;
   assignCategoryToBook(book, createBookInput.categoryId);
   try {
     const result = await bookRepository.save(book);
-    console.log("Added a new book with id: " + book.id);
-    console.log("Result: " + result);
+    console.log("addBook Added a new book with id: " + book.id);
+    console.log("addBook Result: ", result);
     return res.status(201).json(result);
   } catch (error) {
     console.error(error);

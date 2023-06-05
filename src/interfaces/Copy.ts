@@ -15,6 +15,5 @@ export interface CopyAttributes {
 }
 
 export interface CreateCopyAttributes {
-  book: BookAttributes;
-  isIssued: boolean;
+  bookId: number;
 }

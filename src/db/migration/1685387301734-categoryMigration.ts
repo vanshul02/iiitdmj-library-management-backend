@@ -12,7 +12,7 @@ export class CategoryMigration1685387301734 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(`DELETE FROM category WHERE id in (1, 2, 3)`);
+        queryRunner.query(`DELETE FROM public.category WHERE id in (1, 2, 3)`);
     }
 
 }

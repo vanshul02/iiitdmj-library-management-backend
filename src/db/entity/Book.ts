@@ -7,12 +7,6 @@ import { IssueHistory } from "./IssueHistory";
 @Entity()
 export class Book implements BookAttributes {
 
-  constructor(name: string, summary?: string, author?: string) {
-    this.name = name;
-    this.summary = summary;
-    this.author = author;
-  }
-
   @PrimaryGeneratedColumn()
   id!: number;
 
