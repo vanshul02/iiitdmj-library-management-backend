@@ -1,8 +1,10 @@
-import { BeforeInsert, Column, CreateDateColumn, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, Index, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 import { Role, UserAttributes } from "../../interfaces/User";
 import { Student } from "./Student";
 import { Staff } from "./Staff";
 import * as bcrypt from 'bcryptjs';
+import { Copy } from "./Copy";
+import { IssueHistory } from "./IssueHistory";
 
 @Entity()
 export class User implements UserAttributes {
@@ -35,6 +37,12 @@ export class User implements UserAttributes {
 
   @Column()
   role!: Role;
+
+  @OneToMany(() => Copy, (copy) => copy.issuedBy)
+  issuedCopies ?: Copy[];
+
+  @OneToMany(() => IssueHistory, (IssueHistory) => IssueHistory.issuedBy)
+  issueHistory?: IssueHistory[];
 
   @Column({ default: true })
   isActive!: boolean;

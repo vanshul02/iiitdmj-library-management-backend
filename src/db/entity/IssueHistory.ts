@@ -3,6 +3,7 @@ import { Copy } from "./Copy";
 import { Book } from "./Book";
 import { Student } from "./Student";
 import { IssueHistoryAttributes } from "../../interfaces/IssueHistory";
+import { User } from "./User";
 
 @Entity()
 export class IssueHistory implements IssueHistoryAttributes {
@@ -15,16 +16,16 @@ export class IssueHistory implements IssueHistoryAttributes {
   @ManyToOne(() => Book, (book) => book.issueHistory)
   book!: Book;
 
-  @ManyToOne(() => Student, (student) => student.issueHistory)
-  student!: Student;
+  @ManyToOne(() => User, (user) => user.issueHistory)
+  issuedBy!: User;
 
   @Column({ default: 0 })
   fineAmount?: number;
 
-  @Column()
+  @Column({ nullable: true })
   fineClearingDate?: Date;
 
-  @Column()
+  @Column({ nullable: true })
   finePostingDate?: Date;
 
   @Column()
@@ -33,7 +34,7 @@ export class IssueHistory implements IssueHistoryAttributes {
   @Column()
   issuedDate!: Date;
 
-  @Column()
+  @Column({ nullable: true })
   returnDate?: Date;
 
   @CreateDateColumn()

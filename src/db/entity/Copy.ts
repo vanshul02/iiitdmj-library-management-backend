@@ -3,6 +3,7 @@ import { Book } from "./Book";
 import { CopyAttributes } from "../../interfaces/Copy";
 import { Student } from "./Student";
 import { IssueHistory } from "./IssueHistory";
+import { User } from "./User";
 
 
 @Entity()
@@ -24,8 +25,8 @@ export class Copy implements CopyAttributes {
   @Column({ default: false })
   isIssued!: boolean;
 
-  @ManyToOne(() => Student, (student) => student.issuedCopies)
-  issuedBy?: Student;
+  @ManyToOne(() => User, (user) => user.issuedCopies)
+  issuedBy?: User;
 
   @Column({ nullable : true })
   issuedAt?: Date;

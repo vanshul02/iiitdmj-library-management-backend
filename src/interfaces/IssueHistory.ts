@@ -1,12 +1,12 @@
 import { BookAttributes } from "./Book";
 import { CopyAttributes } from "./Copy";
-import { StudentAttributes } from "./Student";
+import { UserAttributes } from "./User";
 
 export interface IssueHistoryAttributes {
   id : number;
   copy: CopyAttributes;
   book: BookAttributes;
-  student: StudentAttributes;
+  issuedBy: UserAttributes;
   fineAmount?: number;
   fineClearingDate?: Date;
   finePostingDate?: Date;

@@ -11,6 +11,5 @@ router.post('/add', util.checkForStaff, controller.addCopy);
 router.post('/issue/:id', util.checkForStaff, controller.issueCopy);
 router.post('/return/:id', util.checkForStaff);
 router.get('/:id');
-router.put('/update/:id', util.checkForStaff);
 router.delete('/delete/:id', util.checkForStaff);
 export default router;

@@ -16,10 +16,4 @@ export class Student implements StudentAttributes {
 
   @Column({ unique: true })
   rollNumber !: string;
-
-  @OneToMany(() => Copy, (copy) => copy.issuedBy)
-  issuedCopies ?: Copy[];
-
-  @OneToMany(() => IssueHistory, (IssueHistory) => IssueHistory.student)
-  issueHistory?: IssueHistory[];
 }
