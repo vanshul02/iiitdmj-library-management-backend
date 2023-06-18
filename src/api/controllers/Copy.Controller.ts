@@ -36,7 +36,10 @@ export const addCopy = async (req: Request, res: Response, next: NextFunction) =
 
 export const issueCopy = async (req: Request, res: Response, next: NextFunction) => {
   console.log("Issuing a copy...");
+  const copyId = Number(req.params.id);
   const issueCopyInput: IssueCopyAttributes = req.body;
+  if (copyId !== issueCopyInput.copyId)
+    throw new Error("Copy ID Mismatch in input and params");
   console.log('issueCopy issueCopyInput: ', issueCopyInput);
   const issueHistory = await createDataForIssueHistory(issueCopyInput);
   console.log("issueCopy DATABASE INPUT: ", issueHistory);

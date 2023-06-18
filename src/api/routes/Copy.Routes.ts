@@ -8,7 +8,7 @@ const router = Router();
 router.use(deserializeUser, requireUser);
 
 router.post('/add', util.checkForStaff, controller.addCopy);
-router.post('/issue/:id', util.checkForStaff);
+router.post('/issue/:id', util.checkForStaff, controller.issueCopy);
 router.post('/return/:id', util.checkForStaff);
 router.get('/:id');
 router.put('/update/:id', util.checkForStaff);
