@@ -28,6 +28,9 @@ export class IssueHistory implements IssueHistoryAttributes {
   finePostingDate?: Date;
 
   @Column()
+  dueDate!: Date;
+
+  @Column()
   issuedDate!: Date;
 
   @Column()

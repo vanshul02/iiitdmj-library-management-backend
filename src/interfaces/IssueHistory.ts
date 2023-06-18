@@ -10,6 +10,7 @@ export interface IssueHistoryAttributes {
   fineAmount?: number;
   fineClearingDate?: Date;
   finePostingDate?: Date;
+  dueDate: Date;
   issuedDate: Date;
   returnDate?: Date;
   createdAt: Date;

@@ -3,6 +3,7 @@ import { AppDataSource } from "../../db/DataSource";
 import { Book } from "../../db/entity/Book";
 import { CreateBookInputAttributes } from '../../interfaces/Book';
 import { Category } from '../../db/entity/Category';
+import * as bookUtils from './utils/BookUtils';
 
 const bookRepository = AppDataSource.getRepository(Book);
 
@@ -42,9 +43,7 @@ export const getBookById = async (
 ) => {
   const id = Number(req.params.id);
   try {
-    const result = await bookRepository.findOneBy({
-      id: id
-    });
+    const result = await bookUtils.getBookByIdUtility(id);
     return res.status(200).json(result);
   } catch (error) {
     console.log(error);

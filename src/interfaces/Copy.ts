@@ -17,3 +17,10 @@ export interface CopyAttributes {
 export interface CreateCopyAttributes {
   bookId: number;
 }
+
+export interface IssueCopyAttributes {
+  studentId: number;
+  copyId: number;
+  issuedDate: Date;
+  dueDate: Date;
+}
