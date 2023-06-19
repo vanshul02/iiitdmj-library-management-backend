@@ -4,6 +4,9 @@ const redisUrl = process.env.REDIS_URL;
 
 const redisClient = createClient({
   url: redisUrl,
+  socket: {
+    connectTimeout: 50000
+  }
 });
 
 const connectRedis = async () => {
