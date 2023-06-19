@@ -19,7 +19,7 @@ export class UserMigration1685423824091 implements MigrationInterface {
         userStaff.role = Role.STAFF;
         userStaff.firstName = 'Dummy';
         userStaff.lastName = 'Staff';
-        userRepository.save([userStudent, userStaff]);
+        await userRepository.save([userStudent, userStaff]);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
