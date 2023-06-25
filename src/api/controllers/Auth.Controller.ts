@@ -9,6 +9,7 @@ import redisClient from "../../utils/ConnectRedis";
 const cookiesOptions: CookieOptions = {
   httpOnly: true,
   sameSite: 'none',
+  secure: true
 };
 
 if (process.env.NODE_ENV === 'production') cookiesOptions.secure = true;
