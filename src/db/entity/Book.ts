@@ -34,8 +34,14 @@ export class Book implements BookAttributes {
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  timesIssued: number = this.issueHistory?.length ?? 0;
-  numOfCopies: number = this.copies?.length ?? 0;
-  numOfCopiesIssued: number = this.copies?.filter(copy => copy.isIssued).length ?? 0;
+  @Column({ default: 0 })
+  numOfCopies!: number;
 
+  get timesIssued(): number {
+    return this.issueHistory?.length ?? 0
+  };
+
+  get numOfCopiesIssued(): number {
+    return this.copies?.filter(copy => copy.isIssued).length ?? 0
+  };
 }

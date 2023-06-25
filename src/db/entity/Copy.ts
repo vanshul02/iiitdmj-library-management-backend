@@ -1,9 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Unique, OneToOne, JoinColumn, ManyToOne, OneToMany } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, AfterInsert, AfterUpdate } from "typeorm"
 import { Book } from "./Book";
 import { CopyAttributes } from "../../interfaces/Copy";
-import { Student } from "./Student";
 import { IssueHistory } from "./IssueHistory";
 import { User } from "./User";
+import { AppDataSource } from "../DataSource";
 
 
 @Entity()
@@ -39,4 +39,40 @@ export class Copy implements CopyAttributes {
 
   @UpdateDateColumn()
   updatedAt!: Date;
+
+  @AfterInsert()
+  async updateNumOfCopiesAfterInsert() {
+    const book = await this.book;
+    if (book) {
+      const copyRepository = AppDataSource.getRepository(Copy);
+      const bookRepository = AppDataSource.getRepository(Book);
+      const count = await copyRepository.count({
+        where: {
+          book: {
+            id: book.id
+          }
+        }
+      });
+      book.numOfCopies = count + 1;
+      await bookRepository.save(book);
+    }
+  }
+
+  @AfterUpdate()
+  async updateNumOfCopiesAfterUpdate() {
+    const book = await this.book;
+    if (book) {
+      const copyRepository = AppDataSource.getRepository(Copy);
+      const bookRepository = AppDataSource.getRepository(Book);
+      const count = await copyRepository.count({
+        where: {
+          book: {
+            id: book.id
+          }
+        }
+      });
+      book.numOfCopies = count;
+      await bookRepository.save(book);
+    }
+  }
 }
