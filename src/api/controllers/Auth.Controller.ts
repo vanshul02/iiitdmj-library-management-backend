@@ -94,6 +94,8 @@ export const loginUserHandler = async (
     return res.status(200).json({
       status: 'success',
       access_token,
+      refresh_token,
+      logged_in: true
     });
   } catch (err: any) {
     next(err);
