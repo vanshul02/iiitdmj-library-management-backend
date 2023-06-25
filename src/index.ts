@@ -37,6 +37,10 @@ AppDataSource.initialize().then(async () => {
   );
 
   // ROUTES
+  app.use((req, res, next) => {
+    res.setHeader('Access-Control-Expose-Headers', 'Set-Cookie');
+    next();
+  });
   app.use('/api/auth', authRouter);
   app.use('/api/user', userRouter);
   app.use('/api/category', categoryRoutes);
