@@ -8,7 +8,7 @@ import redisClient from "../../utils/ConnectRedis";
 
 const cookiesOptions: CookieOptions = {
   httpOnly: true,
-  sameSite: 'lax',
+  sameSite: 'none',
 };
 
 if (process.env.NODE_ENV === 'production') cookiesOptions.secure = true;
@@ -18,8 +18,6 @@ const accessTokenCookieOptions: CookieOptions = {
   expires: new Date(
     Date.now() + (process.env.ACCESS_TOKEN_EXPIRY as any) * 60 * 1000
   ),
-  sameSite: 'none',
-  secure: true,
   maxAge: (process.env.ACCESS_TOKEN_EXPIRY as any) * 60 * 1000,
 };
 
@@ -28,8 +26,6 @@ const refreshTokenCookieOptions: CookieOptions = {
   expires: new Date(
     Date.now() + (process.env.REFRESH_TOKEN_EXPIRY as any) * 60 * 1000
   ),
-  sameSite: 'none',
-  secure: true,
   maxAge: (process.env.REFRESH_TOKEN_EXPIRY as any) * 60 * 1000,
 };
 
