@@ -31,8 +31,7 @@ AppDataSource.initialize().then(async () => {
   // 4. Cors
   app.use(
     cors({
-      origin: "*",
-      credentials: true,
+      origin: "*"
     })
   );
 
