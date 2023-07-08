@@ -11,6 +11,7 @@ router.post('/add', util.checkForStaff, controller.addBook);
 router.get('/:id', controller.getBookById);
 router.get('/:id/copies', controller.getAllCopiesForBook);
 router.get('/:id/copies/not-issued', controller.getUnIssuedCopiesForBook);
+router.get('/:categoryId/search', controller.searchBooksWithCategory);;
 router.put('/update', util.checkForStaff, controller.updateBook);
 router.delete('/delete', util.checkForStaff, controller.deleteBook);
 

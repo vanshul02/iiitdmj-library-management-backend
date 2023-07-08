@@ -22,3 +22,7 @@ export interface CreateBookInputAttributes {
   author?: string;
   categoryId: number;
 };
+
+export interface SearchBookAttributes {
+  keyword: string;
+}

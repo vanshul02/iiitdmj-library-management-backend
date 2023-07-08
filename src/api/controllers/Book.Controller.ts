@@ -1,10 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { AppDataSource } from "../../db/DataSource";
 import { Book } from "../../db/entity/Book";
-import { CreateBookInputAttributes } from '../../interfaces/Book';
+import { CreateBookInputAttributes, SearchBookAttributes } from '../../interfaces/Book';
 import { Category } from '../../db/entity/Category';
 import * as bookUtils from './utils/BookUtils';
 import { Copy } from '../../db/entity/Copy';
+import { Like } from 'typeorm';
 
 const bookRepository = AppDataSource.getRepository(Book);
 const copyReposity = AppDataSource.getRepository(Copy);
@@ -116,6 +117,33 @@ export const getUnIssuedCopiesForBook = async (
     return res.status(200).json(result);
   } catch (error) {
     console.error("getUnIssuedCopiesForBook ERR: ", error);
+    return res.status(400).json(error);
+  }
+};
+
+
+export const searchBooksWithCategory = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const categoryId = Number(req.params.categoryId);
+  const searchBookInput: SearchBookAttributes = req.body;
+  console.log("Searching in all books with category id: " + categoryId 
+    + " with keyword: " + searchBookInput.keyword);
+  try {
+    const result = await bookRepository.find({
+      where: {
+        category: {
+          id: categoryId
+        },
+        name: Like(`%${searchBookInput.keyword}%`)
+      },
+    });
+    console.log("searchBooksWithCategory Result: ", result);
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("searchBooksWithCategory ERR: ", error);
     return res.status(400).json(error);
   }
 };
