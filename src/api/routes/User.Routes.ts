@@ -9,5 +9,6 @@ router.use(deserializeUser, requireUser);
 
 // Get currently logged in user
 router.get('/me', controller.getMeHandler);
+router.get('/:id', controller.getUserById);
 
 export default router;
