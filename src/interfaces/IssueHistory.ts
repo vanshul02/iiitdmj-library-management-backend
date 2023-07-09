@@ -16,3 +16,7 @@ export interface IssueHistoryAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface getDailyLogsAttributes {
+  date: Date;
+}

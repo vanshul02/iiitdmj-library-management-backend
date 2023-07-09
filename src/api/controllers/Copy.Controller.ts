@@ -66,11 +66,10 @@ export const issueCopy = async (req: Request, res: Response, next: NextFunction)
     console.log("issueCopy UpdateCopyResult: ", updateCopyResult);
     console.log("issueCopy Result: ", result);
     return res.status(201).json(result);
-  } catch (error) {
+  } catch (error: any) {
     await queryRunner.rollbackTransaction()
-    await queryRunner.release()
     console.error("issueCopy ERR: ", error);
-    return res.status(400).json(error);
+    return res.status(400).json(error.message);
   }
 };
 
@@ -82,9 +81,11 @@ export const returnCopy = async (req: Request, res: Response, next: NextFunction
 
 const createDataForIssueHistory = async (issueCopyInput: IssueCopyAttributes) => {
   const copy = await copyUtil.getCopyByIdUtility(issueCopyInput.copyId);
-  const user = await userUtil.getUserById(issueCopyInput.userId);
   if (!copy) 
     throw new Error("Not able to find a copy for id " + issueCopyInput.copyId);
+  if (copy.isIssued)
+    throw new Error("Copy is already issued");
+  const user = await userUtil.getUserById(issueCopyInput.userId);
   if (!user) 
     throw new Error("Not able to find a student for id " + issueCopyInput.userId);
   console.log("Fetched book: " + copy.book.name + " Student: " + user.firstName);
@@ -100,7 +101,7 @@ const createDataForIssueHistory = async (issueCopyInput: IssueCopyAttributes) =>
   issueHistory.book = copy.book;
   issueHistory.copy = updatedCopy;
   issueHistory.issuedBy = user;
-  issueHistory.issuedDate = issueCopyInput.issuedDate;
-  issueHistory.dueDate = issueCopyInput.dueDate;
+  issueHistory.issuedDate = new Date(issueCopyInput.issuedDate);
+  issueHistory.dueDate = new Date(issueCopyInput.dueDate);
   return issueHistory;
 };

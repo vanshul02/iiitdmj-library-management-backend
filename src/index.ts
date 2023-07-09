@@ -7,6 +7,7 @@ import userRouter from './api/routes/User.Routes';
 import categoryRoutes from './api/routes/Category.Routes';
 import bookRoutes from './api/routes/Book.Routes';
 import copyRoutes from './api/routes/Copy.Routes';
+import issueRoutes from './api/routes/IssueHistory.Routes';
 import { AppDataSource } from './db/DataSource';
 import AppError from './utils/AppError';
 import * as morgan from 'morgan';
@@ -46,6 +47,7 @@ AppDataSource.initialize().then(async () => {
   app.use('/api/category', categoryRoutes);
   app.use('/api/book', bookRoutes);
   app.use('/api/copy', copyRoutes);
+  app.use('/api/issue', issueRoutes);
 
   // HEALTH CHECKER
   app.get('/api/healthChecker', async (_, res: Response) => {
