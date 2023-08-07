@@ -61,7 +61,6 @@ export const issueCopy = async (req: Request, res: Response, next: NextFunction)
     const updateCopyResult = await queryRunner.manager.save(issueHistory.copy);
     const result = await queryRunner.manager.save(issueHistory);
     await queryRunner.commitTransaction()
-    await queryRunner.release()
     console.log("Created new issue history with id: " + issueHistory.id);
     console.log("issueCopy UpdateCopyResult: ", updateCopyResult);
     console.log("issueCopy Result: ", result);
