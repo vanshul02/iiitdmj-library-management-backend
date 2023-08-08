@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { AppDataSource } from "../../db/DataSource";
 import { Copy } from "../../db/entity/Copy";
-import { CreateCopyAttributes, IssueCopyAttributes, ReturnCopyAttributes, UpdateCopyAttributes } from "../../interfaces/Copy";
+import { CreateCopyAttributes, GetCopyByIDAttributes, IssueCopyAttributes, ReturnCopyAttributes, UpdateCopyAttributes } from "../../interfaces/Copy";
 import { Book } from "../../db/entity/Book";
 import * as bookUtil from "./utils/BookUtils";
 import * as copyUtil from './utils/CopyUtils';
@@ -32,6 +32,35 @@ export const addCopy = async (req: Request, res: Response, next: NextFunction) =
     return res.status(201).json(result);
   } catch (error) {
     console.error("addCopy ERR: ", error);
+    return res.status(400).json(error);
+  }
+};
+
+
+export const getById = async (req: Request, res: Response, next: NextFunction) => {
+  const body : GetCopyByIDAttributes = {copyId: Number(req.params.id)};
+  console.log("Fetching a copy input: ", body);
+  try {
+    const result = await copyReposity.findOne({
+      where: {
+        id: body.copyId
+      },
+      relations: {
+        book: true,
+        issuedBy: true
+      }
+    });
+    if (result) {
+      console.log("Fetched a copy with id: " + result.id);
+      console.log("findCopy By ID Result: ", result);
+      return res.status(200).json(result);
+    }
+    else {
+      console.log("No copy found with specifies id");
+      return res.status(204).json("");
+    }
+  } catch (error) {
+    console.error("getCopyByID ERR: ", error);
     return res.status(400).json(error);
   }
 };
