@@ -19,6 +19,10 @@ export interface CreateCopyAttributes {
   bookId: number;
 }
 
+export interface GetCopyByIDAttributes {
+  copyId: number;
+}
+
 export interface UpdateCopyAttributes {
   copy: Copy;
   isIssued: boolean;
